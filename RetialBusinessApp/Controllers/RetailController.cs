@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RetialBusinessApp.Models;
+using System;
 
 namespace RetialBusinessApp.Controllers
 {
@@ -60,10 +61,12 @@ namespace RetialBusinessApp.Controllers
             try
             {
                 // TODO: Add update logic here
+                WriteToExcel.WriteData(collection);
+
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
