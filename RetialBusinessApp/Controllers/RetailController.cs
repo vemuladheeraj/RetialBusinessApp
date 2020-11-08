@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RetialBusinessApp.Models;
+using System.Collections.Generic;
 
 namespace RetialBusinessApp.Controllers
 {
@@ -47,7 +49,14 @@ namespace RetialBusinessApp.Controllers
             var model = new RetailModel
             {
                 OperatedSince = "TwoToFiveYears",
+                FranchiseAreas = new List<SelectListItem>
+                {
+                    new SelectListItem { Text= "Gachibowli", Value = "Gachibowli" },
+                    new SelectListItem { Text= "Chanda Nagar", Value = "ChandaNagar" },
+                    new SelectListItem { Text= "LB Nagar", Value = "LBNagar" },
+                    new SelectListItem { Text= "Kukatpally", Value = "Kukatpally" }
 
+                },
             };
             return View(model);
         }
@@ -59,9 +68,13 @@ namespace RetialBusinessApp.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    // TODO: Add update logic here
+                    return RedirectToAction(nameof(Index));
+                }
+                else { return View(); }
+                    
             }
             catch
             {
